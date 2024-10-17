@@ -4,13 +4,25 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de la interfaz PeliculaDAO usando JDBC para interactuar con
+ * una base de datos MySQL.
+ */
 public class PeliculaDAOImpl implements PeliculaDAO {
     private Connection conexion;
 
+    /**
+     * Constructor que recibe la conexión a la base de datos.
+     *
+     * @param conexion la conexión JDBC.
+     */
     public PeliculaDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pelicula> filtrarPorAño(int añoInicio, int añoFin) {
         List<Pelicula> peliculas = new ArrayList<>();
@@ -24,9 +36,8 @@ public class PeliculaDAOImpl implements PeliculaDAO {
                 Pelicula pelicula = new Pelicula(
                         rs.getInt("id"),
                         rs.getString("titulo"),
-                        rs.getInt("año"),
-                        rs.getString("genero")
-
+                        rs.getString("genero"),
+                        rs.getInt("año")
                 );
                 peliculas.add(pelicula);
             }
@@ -36,6 +47,9 @@ public class PeliculaDAOImpl implements PeliculaDAO {
         return peliculas;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int contarPeliculas() {
         String sql = "SELECT COUNT(*) FROM pelicula";
@@ -50,6 +64,9 @@ public class PeliculaDAOImpl implements PeliculaDAO {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean añadirPelicula(Pelicula pelicula) {
         String sql = "INSERT INTO pelicula (titulo, genero, año) VALUES (?, ?, ?)";
@@ -64,6 +81,4 @@ public class PeliculaDAOImpl implements PeliculaDAO {
         }
         return false;
     }
-
-    // Métodos no implementados del DAO
 }

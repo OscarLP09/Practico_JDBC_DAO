@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * Clase para gestionar la conexión con la base de datos usando JDBC.
  */
 public class ConexionDB {
-    private static final String URL = "jdbc:mysql://localhost:3306/PELICULA";
+    private static final String URL = "jdbc:mysql://localhost:3306/pelicula";
     private static final String USUARIO = "root"; // Cambia al usuario correcto
-    private static final String PASSWORD = "";   // Cambia a la contraseña correcta
+    private static final String PASSWORD = System.getenv("DB_PASSWORD");   // Cambia a la contraseña correcta
 
     /**
      * Establece una conexión a la base de datos.
